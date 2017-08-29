@@ -1,16 +1,27 @@
-import React, { Component } from 'react'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react';
+import {Route, Switch} from 'react-router-dom';
 import axios from 'axios';
 import UsersList from './components/UsersList';
 import AddUser from './components/AddUser';
 import About from './components/About';
-import NavBar from './components/NavBar'
+import NavBar from './components/NavBar';
+import Form from './components/Form';
 
 
 class App extends Component {
   constructor() {
     super()
-    this.state = { title: 'Flask Microservices', users:[], username:'', email:'' }
+    this.state = { 
+      title: 'Flask Microservices', 
+      users:[], 
+      username:'', 
+      email:'',
+      formData: {
+        username: '',
+        email: '',
+        password: ''
+      } 
+    }
   }
   
   componentDidMount() {
@@ -64,6 +75,16 @@ class App extends Component {
                           <UsersList users={ this.state.users } />
                       </div>)}/>
                   <Route exact path="/about" component={About}/>
+                  <Route exact path="/login" render={()=>(
+                    <Form
+                      formType={'Login'}
+                      formData={this.state.formData} />
+                  )}/>
+                  <Route exact path="/register" render={()=>(
+                    <Form
+                      formType={'Register'}
+                      formData={this.state.formData} />
+                  )}/>
               </Switch>
             </div>
           </div>
