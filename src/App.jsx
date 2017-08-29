@@ -53,6 +53,17 @@ class App extends Component {
     this.setState(obj);
   }
 
+  handleFormChange(event) {
+    const obj = this.state.formData;
+    obj[event.target.name] = event.target.value;
+    this.setState(obj);
+  }
+
+  handleUserFormSubmit(event) {
+    event.preventDefault();
+    console.log('sanity check!');
+  }
+
   render() {
     return (
       <div>
@@ -78,12 +89,18 @@ class App extends Component {
                   <Route exact path="/login" render={()=>(
                     <Form
                       formType={'Login'}
-                      formData={this.state.formData} />
+                      formData={this.state.formData} 
+                      handleUserFormSubmit={this.handleUserFormSubmit.bind(this)}
+                      handleFormChange={this.handleFormChange.bind(this)}
+                      />
                   )}/>
                   <Route exact path="/register" render={()=>(
                     <Form
                       formType={'Register'}
-                      formData={this.state.formData} />
+                      formData={this.state.formData} 
+                      handleUserFormSubmit={this.handleUserFormSubmit.bind(this)}
+                      handleFormChange={this.handleFormChange.bind(this)}
+                      />
                   )}/>
               </Switch>
             </div>
