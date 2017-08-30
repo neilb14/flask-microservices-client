@@ -20,7 +20,8 @@ class App extends Component {
         username: '',
         email: '',
         password: ''
-      } 
+      }, 
+      isAuthenticated: false
     }
   }
   
@@ -79,10 +80,17 @@ class App extends Component {
     const url = `${process.env.REACT_APP_USERS_SERVICE_URL}/auth/${formType}`
     axios
       .post(url, data)
-      .then((res) => {console.log(res.data)})
+      .then((res) => {
+        this.setState({
+          formData: {username:'', email:'', password:''},
+          username:'',
+          email:'',
+          isAuthenticated: true
+        });
+        window.localStorage.setItem('authToken', res.data.auth_token);
+      })
       .catch((err) => {console.log(err)});
   }
-
 
   render() {
     return (
@@ -112,6 +120,7 @@ class App extends Component {
                       formData={this.state.formData} 
                       handleUserFormSubmit={this.handleUserFormSubmit.bind(this)}
                       handleFormChange={this.handleFormChange.bind(this)}
+                      isAuthenticated={this.state.isAuthenticated}
                       />
                   )}/>
                   <Route exact path="/register" render={()=>(
@@ -120,6 +129,7 @@ class App extends Component {
                       formData={this.state.formData} 
                       handleUserFormSubmit={this.handleUserFormSubmit.bind(this)}
                       handleFormChange={this.handleFormChange.bind(this)}
+                      isAuthenticated={this.state.isAuthenticated}
                       />
                   )}/>
               </Switch>
