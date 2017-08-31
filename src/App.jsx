@@ -144,7 +144,9 @@ class App extends Component {
                       isAuthenticated={this.state.isAuthenticated}
                     />
                   )}/>
-                  <Route exact path='/status' component={UserStatus}/>
+                  <Route exact path='/status' render={()=>(
+                    <UserStatus isAuthenticated={this.state.isAuthenticated}/>
+                  )}/>
               </Switch>
             </div>
           </div>
