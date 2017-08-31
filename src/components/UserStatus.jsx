@@ -24,12 +24,24 @@ class UserStatus extends Component {
             }
         }
         return axios(options)
-            .then((res)=> { console.log(res.data.data) })
+            .then((res)=> { this.setState({
+                created_at: res.data.data.created_at,
+                email: res.data.data.email,
+                username: res.data.data.username,
+                id: res.data.data.id
+            }); })
             .catch((error)=> { console.log(error) })
     }
     render() {
         return (
-            <div><p>test</p></div>
+            <div>
+                <ul>
+                    <li><strong>User Id:</strong> {this.state.id}</li>
+                    <li><strong>Username:</strong> {this.state.username}</li>
+                    <li><strong>Email:</strong> {this.state.email}</li>
+                    <li><strong>Created At:</strong> {this.state.created_at}</li>
+                </ul>
+            </div>
         )
     }
 }
