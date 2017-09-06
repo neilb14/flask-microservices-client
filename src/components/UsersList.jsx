@@ -3,7 +3,7 @@ import React from 'react'
 const UsersList = (props) => {
     return (
         <div>
-            <h1>All Users</a>
+            <h1>All Users</h1>
             <hr/><br/>
             {
                 props.users.map((user)=> {
