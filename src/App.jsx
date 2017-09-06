@@ -109,8 +109,6 @@ class App extends Component {
               <Switch>
                   <Route exact path="/" render={() => (
                       <div>
-                          <h1>All Users</h1>
-                          <hr/><br/>
                           <AddUser 
                           username={this.state.username} 
                           email={this.state.email} 
