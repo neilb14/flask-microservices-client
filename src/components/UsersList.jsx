@@ -12,6 +12,7 @@ const UsersList = (props) => {
                         <th>User ID</th>
                         <th>Email</th>
                         <th>Username</th>
+                        <th>Created</th>
                     </tr>
                 </thead>
                 <tbody>
