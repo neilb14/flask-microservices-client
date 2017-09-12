@@ -88,6 +88,7 @@ class App extends Component {
           isAuthenticated: true
         });
         window.localStorage.setItem('authToken', res.data.auth_token);
+        this.getUsers();
       })
       .catch((err) => {console.log(err)});
   }
