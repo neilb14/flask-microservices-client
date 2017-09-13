@@ -24,6 +24,12 @@ class App extends Component {
       isAuthenticated: false
     }
   }
+
+  componentWillMount() {
+    if(window.localStorage.getItem('authToken')){
+      this.setState({isAuthenticated: true});
+    }
+  }
   
   componentDidMount() {
     this.getUsers();
