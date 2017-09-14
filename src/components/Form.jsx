@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const Form = (props) => {
-    if(props.isAuthenticated){
+class Form extends Component {
+  constructor (props) {
+    super(props);
+  }
+  
+  render(){
+    if(this.props.isAuthenticated){
         return <Redirect to='/'/>;
     }
     return (
     <div>
-      <h1>{props.formType}</h1>
+      <h1>{this.props.formType}</h1>
       <hr/><br/>
-      <form onSubmit={(event) => props.handleUserFormSubmit(event)}>
-        {props.formType === 'Register' &&
+      <form onSubmit={(event) => this.props.handleUserFormSubmit(event)}>
+        {this.props.formType === 'Register' &&
           <div className="form-group">
             <input
               name="username"
@@ -18,8 +23,8 @@ const Form = (props) => {
               type="text"
               placeholder="Enter a username"
               required
-              value={props.formData.username}
-              onChange={props.handleFormChange}
+              value={this.props.formData.username}
+              onChange={this.props.handleFormChange}
             />
           </div>
         }
@@ -30,8 +35,8 @@ const Form = (props) => {
             type="email"
             placeholder="Enter an email address"
             required
-            value={props.formData.email}
-            onChange={props.handleFormChange}
+            value={this.props.formData.email}
+            onChange={this.props.handleFormChange}
           />
         </div>
         <div className="form-group">
@@ -41,8 +46,8 @@ const Form = (props) => {
             type="password"
             placeholder="Enter a password"
             required
-            value={props.formData.password}
-            onChange={props.handleFormChange}
+            value={this.props.formData.password}
+            onChange={this.props.handleFormChange}
           />
         </div>
         <input
@@ -50,9 +55,10 @@ const Form = (props) => {
           className="btn btn-primary btn-lg btn-block"
           value="Submit"
         />
-      </form>
-    </div>
-  )
+        </form>
+      </div>
+    )
+  }
 }
 
 export default Form;
