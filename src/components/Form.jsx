@@ -43,6 +43,14 @@ class Form extends Component {
     this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
   }
 
+  initRules() {
+    const rules = this.state.formRules;
+    for (const rule of rules){
+      rule.valid = false;
+    }
+    this.setState({formRules: rules});
+  }
+
   componentDidMount(){
     this.clearForm();
   }
@@ -50,6 +58,7 @@ class Form extends Component {
   componentWillReceiveProps(nextProps){
     if(this.props.formType !== nextProps.formType){
       this.clearForm();
+      this.initRules();
     }
   }
 
@@ -71,8 +80,37 @@ class Form extends Component {
     this.validateForm();
   }
 
+  validateEmail(email) {
+    // eslint-disable-next-line
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
   validateForm(){
-    this.setState({valid:true});
+    const formType = this.state.formType;
+    const rules = this.state.formRules;
+    const formData = this.state.formData;
+    this.setState({valid: false});
+    for(const rule of rules){
+      rule.valid = false;
+    }
+    if(formType === 'Register') {
+      if(formData.username.length > 5) rules[0].valid = true;
+    } else {
+      rules[0].valid = true;
+    }
+    if(formData.email.length > 5) rules[1].valid = true;
+    if(this.validateEmail(formData.email)) rules[2].valid = true;
+    if(formData.password.length > 10) rules[3].valid = true;
+    this.setState({formRules:rules});
+    if(this.allTrue()) this.setState({valid:true});
+  }
+
+  allTrue(){
+    for (const rule of this.state.formRules){
+      if(!rule.valid) return false;
+    }
+    return true;
   }
 
   handleUserFormSubmit(event) {

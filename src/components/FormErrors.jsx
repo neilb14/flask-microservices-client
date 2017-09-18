@@ -11,10 +11,10 @@ const FormErrors = (props) => {
                     props.formRules.map((rule) => {
                         if(rule.field === 'username' ){
                             if(props.formType === 'Register' ){
-                                return <li className="error" key={rule.id}>{rule.name}</li>
+                                return <li className={rule.valid ? "success" : "error"} key={rule.id}>{rule.name}</li>
                             }
                         } else {
-                            return <li className="error" key={rule.id}>{rule.name}</li>
+                            return <li className={rule.valid ? "success" : "error"} key={rule.id}>{rule.name}</li>
                         }
                     })
                     
