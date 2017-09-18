@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import FormErrors from './FormErrors';
 
 class Form extends Component {
   constructor (props) {
@@ -11,6 +12,32 @@ class Form extends Component {
         email: '',
         password: ''
       },
+      formRules: [
+        {
+          id: 1,
+          field: 'username',
+          name: 'Username must be greater than 5 characters.',
+          valid: false
+        },
+        {
+          id: 2,
+          field: 'email',
+          name: 'Email must be greater than 5 characters.',
+          valid: false
+        },
+        {
+          id: 3,
+          field: 'email',
+          name: 'Email must be a valid email address.',
+          valid: false
+        },
+        {
+          id: 4,
+          field: 'password',
+          name: 'Password must be greater than 10 characters.',
+          valid: false
+        }
+      ],
       valid:false
     }
     this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
@@ -83,6 +110,10 @@ class Form extends Component {
     <div>
       <h1 style={{'textTransform':'capitalize'}}>{this.props.formType}</h1>
       <hr/><br/>
+      <FormErrors
+        formType={this.props.formType}
+        formRules={this.state.formRules}
+        />
       <form onSubmit={(event) => this.handleUserFormSubmit(event)}>
         {this.props.formType === 'Register' &&
           <div className="form-group">
