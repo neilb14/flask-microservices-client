@@ -6,7 +6,8 @@ import About from './components/About';
 import NavBar from './components/NavBar';
 import Form from './components/Form';
 import Logout from './components/Logout';
-import UserStatus from './components/UserStatus'
+import UserStatus from './components/UserStatus';
+import Message from './components/Message';
 
 class App extends Component {
   constructor() {
@@ -16,8 +17,17 @@ class App extends Component {
       users:[], 
       username:'', 
       email:'',
-      isAuthenticated: false
+      isAuthenticated: false,
+      messageName: '',
+      messageType: ''
     }
+  }
+
+  createMessage(name='Sanity Check', type='success') {
+    this.setState({
+      messageName: name,
+      messageType: type  
+    });
   }
 
   componentWillMount() {
@@ -58,6 +68,7 @@ class App extends Component {
     window.localStorage.setItem('authToken', token);
     this.setState({ isAuthenticated: true });
     this.getUsers();
+    this.createMessage('Welcome!', 'success');
   }
 
   render() {
@@ -65,6 +76,12 @@ class App extends Component {
       <div>
         <NavBar title={this.state.title} isAuthenticated={this.state.isAuthenticated}/>
         <div className="container">
+          {this.state.messageName && this.state.messageType && 
+            <Message
+                messageName={this.state.messageName}
+                messageType={this.state.messageType}
+                />
+          }
           <div className="row">
             <div className="col-md-4">
               <br/>
